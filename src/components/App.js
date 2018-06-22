@@ -1,22 +1,53 @@
-import React, { Component } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import LoadingBar from 'react-redux-loading';
 import { handleInitialData } from '../actions/shared';
-import '../styles/App.css';
 import QuestionList from './QuestionList';
+import QuestionPage from './QuestionPage';
+import NewQuestion from './NewQuestion';
+import Nav from './Nav';
+import Login from './Login';
+import UserPane from './UserPane';
+import '../styles/App.css';
 
-class App extends Component {
-  componentDidMount() {
-    this.props.dispatch(handleInitialData());
-  }
+class App extends React.Component {
+    componentDidMount() {
+        this.props.dispatch(handleInitialData());
+    }
 
-  render() {
-    return (
-      <div>
-        App
-        <QuestionList />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <Router>
+                <Fragment>
+                    <LoadingBar />
+                    <div className='container'>
+                        <Nav />
+                        {this.props.loading
+                            ? 'Loading'
+                            : this.props.authedUser !== 'none' ?
+                                <div>
+                                    <UserPane />
+                                    <Route path='/' exact component={QuestionList} />
+                                    <Route path='/question/:id' component={QuestionPage} />
+                                    <Route path='/new' component={NewQuestion} />
+                                    {/* <Route path='/leaderboard' component={Leaderboard} />} */}
+                                </div> :
+                                <div>
+                                    <Login />
+                                </div>}
+                    </div>
+                </Fragment>
+            </Router>
+        );
+    }
 }
 
-export default connect()(App);
+const mapStateToProps = ({ authedUser }) => {
+    return {
+        loading: authedUser === null,
+        authedUser
+    };
+}
+
+export default connect(mapStateToProps)(App);

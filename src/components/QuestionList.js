@@ -1,55 +1,85 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Question from './Question';
+import Button from '@material-ui/core/Button';
 
 class QuestionList extends React.Component {
+    state = {
+        showType: 'unanswered'
+    }
+
+    setShowType(type) {
+        this.setState({
+            showType: type
+        });
+    }
+
     render() {
+        const { showType } = this.state;
+        const { authedUser, questionIDs } = this.props;
+
         return (
             <div>
-                <h1>Question List</h1>
-                AuthedUser: {this.props.authedUser}
-                {console.log("Questions", this.props.answeredQuestions)}
-                <h2>Answered:</h2>
-                {this.props.answeredQuestions.map((id) => (
-                    <li key={id}>
-                        <Question id={id} />
-                    </li>
-                ))}
-                <h2>Unanaswered:</h2>
-                {this.props.unansweredQuestions.map((id) => (
-                    <li key={id}>
-                        <Question id={id} />
-                    </li>
-                ))}
+                <div className='middle'>
+                    <h1>Would You Rather?</h1>
+                </div>
+                AuthedUser: {authedUser}
+                <div>
+                    <div className='middle'>
+                        <Button
+                            color={showType !== 'answered' ? 'default' : 'primary'}
+                            variant='flat'
+                            onClick={() => this.setShowType('answered')}>
+                            Answered
+                        </Button>
+                        <Button
+                            color={showType !== 'unanswered' ? 'default' : 'primary'}
+                            variant='flat'
+                            onClick={() => this.setShowType('unanswered')}>
+                            Unanswered
+                    </Button>
+                    </div>
+                </div>
+
+                <div className={showType !== 'answered' ? 'hidden' : ''}>
+                    <h2>Answered:</h2>
+                    {questionIDs.answeredQuestions.map((id) => (
+                        <li key={id}>
+                            <Question id={id} format="small" />
+                        </li>
+                    ))}
+                </div>
+
+                <div className={showType !== 'unanswered' ? 'hidden' : ''}>
+                    <h2>Unanswered:</h2>
+                    {questionIDs.unansweredQuestions.map((id) => (
+                        <li key={id}>
+                            <Question id={id} format="small" />
+                        </li>
+                    ))}
+                </div>
             </div>
         );
     }
 }
 
 const mapStateToProps = ({ authedUser, questions }) => {
-    // const unansweredQuestionIDs = questions.filter((question) => (question.optionOne.votes.includes(authedUser)))
-    // console.log(questions);
-    // const questionIDs = {
-    //     answered: Object.keys(questions.filter((question) => {
-    //         question.optionOne.votes.includes(authedUser) || question.optionOne.votes.includes(authedUser)
-    //     }))
-    // }
+    const qids = Object.keys(questions).sort((a, b) => {
+        return questions[b].timestamp - questions[a].timestamp;
+    });
 
-    const questionIDs = Object.keys(questions);
-    const answeredQuestions = questionIDs.filter((id) => (
-        questions[id].optionOne.votes.includes(authedUser) || questions[id].optionOne.votes.includes(authedUser)
-    ));
-
-    const unansweredQuestions = questionIDs.filter((id) => (
-        !questions[id].optionOne.votes.includes(authedUser) && !questions[id].optionOne.votes.includes(authedUser)
-    ));
+    const questionIDs = {
+        answeredQuestions: qids.filter((id) => (
+            questions[id].optionOne.votes.includes(authedUser) || questions[id].optionOne.votes.includes(authedUser))
+        ),
+        unansweredQuestions: qids.filter((id) => (
+            !questions[id].optionOne.votes.includes(authedUser) && !questions[id].optionOne.votes.includes(authedUser))
+        )
+    }
 
     return {
-        // unansweredQuestionIDs,
-        // answeredQuestionIDs
         authedUser,
-        answeredQuestions,
-        unansweredQuestions
+        questionIDs
     }
 }
 
