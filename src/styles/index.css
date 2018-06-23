@@ -74,3 +74,12 @@ li {
 .btn-inactive {
   background-color: #bbbbbb;
 }
+
+.leaderboard-selected {
+  border: 2px solid black;
+}
+
+.userpane {
+  display: flex; 
+  justify-content: flex-end;
+}

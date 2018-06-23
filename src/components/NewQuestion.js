@@ -34,15 +34,18 @@ class NewQuestion extends React.Component {
     render() {
         return (
             <div>
-                <h1>New</h1>
+                <h1>Would you rather...</h1>
                 <form onSubmit={this.handleSubmit}>
                     <input type='text' value={this.state.questionOne} onChange={(e) => this.handleOptionChange(e, 'questionOne')} />
+                    <div>or</div>
                     <input type='text' value={this.state.questionTwo} onChange={(e) => this.handleOptionChange(e, 'questionTwo')} />
-                    <button
-                        type='submit'
-                        disabled={this.state.questionOne === '' || this.state.questionTwo === ''}>
-                        Submit
+                    <div>
+                        <button
+                            type='submit'
+                            disabled={this.state.questionOne === '' || this.state.questionTwo === ''}>
+                            Submit
                      </button>
+                    </div>
                 </form>
             </div>
         );

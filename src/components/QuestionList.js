@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Question from './Question';
-import Button from '@material-ui/core/Button';
 
 class QuestionList extends React.Component {
     state = {
@@ -16,28 +15,25 @@ class QuestionList extends React.Component {
 
     render() {
         const { showType } = this.state;
-        const { authedUser, questionIDs } = this.props;
+        const { questionIDs } = this.props;
 
         return (
             <div>
                 <div className='middle'>
                     <h1>Would You Rather?</h1>
                 </div>
-                AuthedUser: {authedUser}
                 <div>
                     <div className='middle'>
-                        <Button
-                            color={showType !== 'answered' ? 'default' : 'primary'}
-                            variant='flat'
+                        <button
+                            className={showType !== 'answered' ? 'button outline' : ''}
                             onClick={() => this.setShowType('answered')}>
                             Answered
-                        </Button>
-                        <Button
-                            color={showType !== 'unanswered' ? 'default' : 'primary'}
-                            variant='flat'
+                        </button>
+                        <button
+                            className={showType !== 'unanswered' ? 'button outline' : ''}
                             onClick={() => this.setShowType('unanswered')}>
                             Unanswered
-                    </Button>
+                    </button>
                     </div>
                 </div>
 

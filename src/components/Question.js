@@ -23,6 +23,10 @@ class Question extends React.Component {
 
     }
 
+    getPercent = (first, second) => {
+        return first * 100 / (first + second);
+    }
+
     render() {
         const { authedUser, question, user, size, id } = this.props;
         let vote = 'none';
@@ -48,12 +52,14 @@ class Question extends React.Component {
                     <div>
                         {(vote === 'optionOne' || vote === 'optionTwo')
                             ? <div>
-                                Results:
-                                <div className={vote === 'optionOne' ? 'selected' : ''}>
-                                    {question.optionOne.text}
+                                <h3>Results</h3>
+                                <div className={vote === 'optionOne' ? 'message success' : 'message'}>
+                                    {question.optionOne.text} - Votes: {question.optionOne.votes.length}
+                                    ({this.getPercent(question.optionOne.votes.length, question.optionTwo.votes.length)}%)
                                 </div>
-                                <div className={vote === 'optionTwo' ? 'selected' : ''}>
-                                    {question.optionTwo.text}
+                                <div className={vote === 'optionTwo' ? 'message success' : 'message'}>
+                                    {question.optionTwo.text} - Votes: {question.optionTwo.votes.length}
+                                    ({this.getPercent(question.optionTwo.votes.length, question.optionOne.votes.length)}%)
                                 </div>
 
                             </div>

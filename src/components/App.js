@@ -10,7 +10,7 @@ import Leaderboard from './Leaderboard';
 import Nav from './Nav';
 import Login from './Login';
 import UserPane from './UserPane';
-import '../styles/App.css';
+import '../styles/kube.css';
 
 class App extends React.Component {
     componentDidMount() {

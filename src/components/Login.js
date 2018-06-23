@@ -25,6 +25,7 @@ class Login extends React.Component {
 
         return (
             <div>
+                <h2>Please log in</h2>
                 <form onSubmit={this.handleSubmit}>
                     {Object.keys(users).map((user) => (
                         <div key={user}>

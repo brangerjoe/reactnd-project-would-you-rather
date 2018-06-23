@@ -10,25 +10,25 @@ class UserPane extends React.Component {
     }
 
     render() {
-        const { authedUser } = this.props;
+        const { authedUser, users } = this.props;
 
         return (
             <div>
                 {authedUser !== 'none' &&
-                    <div>
-                        Welcome, {authedUser}!
-                        <button onClick={this.handleLogout}>
-                            Log out
-                        </button>
+                    <div className='userpane'>
+                        <div>
+                            Welcome, {users[authedUser].name}! | <a href='#' onClick={this.handleLogout}>Log out</a>
+                        </div>
                     </div>}
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ authedUser }) => {
+const mapStateToProps = ({ authedUser, users }) => {
     return {
-        authedUser
+        authedUser,
+        users
     }
 }
 
