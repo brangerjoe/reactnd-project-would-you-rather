@@ -70,10 +70,10 @@ const mapStateToProps = ({ authedUser, questions }) => {
 
     const questionIDs = {
         answeredQuestions: qids.filter((id) => (
-            questions[id].optionOne.votes.includes(authedUser) || questions[id].optionOne.votes.includes(authedUser))
+            questions[id].optionOne.votes.includes(authedUser) || questions[id].optionTwo.votes.includes(authedUser))
         ),
         unansweredQuestions: qids.filter((id) => (
-            !questions[id].optionOne.votes.includes(authedUser) && !questions[id].optionOne.votes.includes(authedUser))
+            !questions[id].optionOne.votes.includes(authedUser) && !questions[id].optionTwo.votes.includes(authedUser))
         )
     }
 

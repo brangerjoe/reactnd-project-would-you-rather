@@ -6,6 +6,7 @@ import { handleInitialData } from '../actions/shared';
 import QuestionList from './QuestionList';
 import QuestionPage from './QuestionPage';
 import NewQuestion from './NewQuestion';
+import Leaderboard from './Leaderboard';
 import Nav from './Nav';
 import Login from './Login';
 import UserPane from './UserPane';
@@ -31,7 +32,7 @@ class App extends React.Component {
                                     <Route path='/' exact component={QuestionList} />
                                     <Route path='/question/:id' component={QuestionPage} />
                                     <Route path='/new' component={NewQuestion} />
-                                    {/* <Route path='/leaderboard' component={Leaderboard} />} */}
+                                    <Route path='/leaderboard' component={Leaderboard} />
                                 </div> :
                                 <div>
                                     <Login />
