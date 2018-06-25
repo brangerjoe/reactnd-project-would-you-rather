@@ -31,7 +31,7 @@ class App extends React.Component {
                                     <UserPane />
                                     <Route path='/' exact component={QuestionList} />
                                     <Route path='/question/:id' component={QuestionPage} />
-                                    <Route path='/new' component={NewQuestion} />
+                                    <Route path='/add' component={NewQuestion} />
                                     <Route path='/leaderboard' component={Leaderboard} />
                                 </div> :
                                 <div>

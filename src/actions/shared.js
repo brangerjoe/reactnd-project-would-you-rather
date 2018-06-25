@@ -21,16 +21,6 @@ export function handleInitialData() {
             dispatch(setAuthedUser(AUTHED_USER));
             dispatch(hideLoading());
         });
-        // _getUsers().then((users) => {
-        //     dispatch(receiveUsers(users));
-        // });
-
-        // _getQuestions().then((questions) => {
-        //     dispatch(receiveQuestions(questions))
-        //     dispatch(setAuthedUser(AUTHED_USER));
-        //     dispatch(hideLoading());
-        // });
-
     }
 }
 
